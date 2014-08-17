@@ -36,11 +36,11 @@ let rec write_out = function
         else if n >= 100 then
             write_out (n / 100) ^ "hundred" ^
                 (if n % 100 <> 0 then "and" ^ (write_out (n % 100)) else "")
-        else 
+        else
             write_out (n - (n % 10)) ^ write_out (n % 10)
 
 let get_length_sum left right =
-    let rec iter acc cur = 
+    let rec iter acc cur =
         if cur > right then
             acc
         else

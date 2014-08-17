@@ -1,28 +1,13 @@
 open Core.Std
 
-let sum_divisors_upto n =
-    let divisors =
-        Bigarray.Array1.create Bigarray.int Bigarray.c_layout (n + 1) in
-    let rec add_divisor stride = function
-        | from when from > n -> ()
-        | from ->
-            let prv = Bigarray.Array1.unsafe_get divisors from in
-            Bigarray.Array1.unsafe_set divisors from (prv + stride);
-            add_divisor stride (from + stride)
-    in
-    let rec iter = function
-        | cur when cur > n -> ()
-        | cur ->
-            add_divisor cur (cur + cur);
-            iter (cur + 1)
-    in
-    Bigarray.Array1.fill divisors 1;
-    iter 2;
-    divisors
+let sum_divisors_upto upto =
+    Common.generic_sieve upto
+        ~init:(fun ~fill ~set:_ -> fill 1)
+        ~update:(fun orig _ prv -> prv + orig)
 
 let find_minimum_non_sum upto =
     let sum_divisors = sum_divisors_upto upto in
-    let is_abundant n = Bigarray.Array1.unsafe_get sum_divisors n > n in
+    let is_abundant n = sum_divisors n > n in
     let rec iter acc cur =
         if cur > upto then
             acc

@@ -34,17 +34,17 @@ end = struct
     type t = (int * int)
 
     let create () = (1, 0)
-    
+
     let add (prod, nr0) = function
         | 0 -> (prod, nr0 + 1)
         | n -> (prod * n, nr0)
-    
+
     let remove (prod, nr0) = function
         | 0 -> (prod, nr0 - 1)
         | n -> (prod / n, nr0)
 
     let get (prod, nr0) =
-        match nr0 with 
+        match nr0 with
         | 0 -> prod
         | _ -> 0
 end

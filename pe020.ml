@@ -1,7 +1,7 @@
 open Core.Std
 open Util
 
-let fact_norec fact n = 
+let fact_norec fact n =
     if n <= 1 then
         Big_int.unit_big_int
     else

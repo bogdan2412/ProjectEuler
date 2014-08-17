@@ -13,7 +13,7 @@ let find_first_with_length_at_least at_least =
     let rec iter cur =
         if String.length (Big_int.string_of_big_int (fib cur)) >= at_least then
             cur
-        else    
+        else
             iter (cur + 1)
     in
     iter 1

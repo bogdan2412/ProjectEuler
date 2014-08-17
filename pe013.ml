@@ -106,7 +106,7 @@ let numbers_str = [|
 let numbers = Array.map numbers_str ~f:Big_int.big_int_of_string
 
 let sum = Array.fold numbers
-            ~init:Big_int.zero_big_int 
+            ~init:Big_int.zero_big_int
             ~f:Big_int.add_big_int
 
 let () = String.slice (Big_int.string_of_big_int sum) 0 10

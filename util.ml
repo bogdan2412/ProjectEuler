@@ -14,7 +14,7 @@ let memoize f =
 
 (* Takes in a recursive function as argument and returns a memoized version
  * of the function. The recursive function should not be specifically made
- * recursive, but should instead take itself as the first argument. 
+ * recursive, but should instead take itself as the first argument.
  *
  * Example:
  * let fib_norec fib = function
@@ -31,7 +31,19 @@ let memo_rec f_norec =
     let fref = ref (fun _ -> assert false) in
     let f = memoize (fun arg -> f_norec !fref arg) in
     fref := f;
-    fun arg -> f arg
+    !fref
+
+let memo_rec_2args f_norec =
+    let fref = ref (fun _ _ -> assert false) in
+    let f = memoize (fun (arg1, arg2) -> f_norec !fref arg1 arg2) in
+    fref := (fun arg1 arg2 -> f (arg1, arg2));
+    !fref
+
+let memo_rec_3args f_norec =
+    let fref = ref (fun _ _ _ -> assert false) in
+    let f = memoize (fun (arg1, arg2, arg3) -> f_norec !fref arg1 arg2 arg3) in
+    fref := (fun arg1 arg2 arg3 -> f (arg1, arg2, arg3));
+    !fref
 
 (* Returns the argument for which ~f has the highest value within the range
  * [left, right] according to the comparator function ~cmp *)
@@ -62,7 +74,7 @@ let fmax_range ~f ~cmp left right =
             acc
         else
             let val_at_pos = Some (f pos) in
-            let new_acc = 
+            let new_acc =
                 if Option.compare ~cmp val_at_pos acc > 0 then
                     val_at_pos
                 else
@@ -80,5 +92,5 @@ let fold_range ~init ~f left right =
     let rec iter acc = function
         | pos when pos > right -> acc
         | pos -> iter (f acc pos) (pos + 1)
-    in 
+    in
     iter init left
