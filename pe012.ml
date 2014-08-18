@@ -3,7 +3,7 @@ open Core.Std
 let get_divisor_count_upto upto =
     Common.generic_sieve upto
         ~init:(fun ~fill ~set -> fill 2; set 0 0; set 1 1;)
-        ~update:(fun _ _ prv -> prv + 1)
+        ~update:(fun _ _ _ cnt -> cnt + 1)
 
 let find_triangular_with_divisors at_least upto =
     let get_divisor_count = get_divisor_count_upto upto in

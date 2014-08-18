@@ -3,7 +3,7 @@ open Core.Std
 let sum_divisors_upto upto =
     Common.generic_sieve upto
         ~init:(fun ~fill ~set:_ -> fill 1)
-        ~update:(fun orig _ prv -> prv + orig)
+        ~update:(fun orig _ _ sum -> sum + orig)
 
 let find_minimum_non_sum upto =
     let sum_divisors = sum_divisors_upto upto in
